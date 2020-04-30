@@ -18,6 +18,7 @@ namespace LibraryArchiveAdmin.Controllers
         [HttpPost]
         public ActionResult Add(string title, string author, string genre, string year, string amount)
         {
+
             int amount1;
             int year1;
 
@@ -31,13 +32,19 @@ namespace LibraryArchiveAdmin.Controllers
             }
 
             Book book = new Book() { Amount = amount1, Title = title, Genre = genre, Year = year1, Author = author };
+
+            BookContext db = new BookContext();
+            db.Books.Add(book);
+            db.SaveChanges();
+
             ViewBag.ResultMessage = "Книгу додано.";
             return View("Result");
         }
         public ActionResult List()
         {
-            IEnumerable<Book> books = null;
-            if (books != null)
+            BookContext db = new BookContext();
+            IEnumerable<Book> books = db.Books;
+            if (books != null && books.Count() > 0)
             {
                 ViewBag.Books = books;
                 return View();
@@ -55,10 +62,13 @@ namespace LibraryArchiveAdmin.Controllers
         [HttpPost]
         public ActionResult Remove(int Id)
         {
-            Book bookToRemove = null;
+            BookContext db = new BookContext();
+            Book bookToRemove = db.Books.Find(Id);
 
             if (bookToRemove != null)
             {
+                db.Books.Remove(bookToRemove);
+                db.SaveChanges();
                 @ViewBag.ResultMessage = "Книгу видалено.";
             }
             else
