@@ -168,6 +168,9 @@
   <data name="BookRemoved" xml:space="preserve">
     <value>Книгу видалено.</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
   <data name="Genre" xml:space="preserve">
     <value>Жанр</value>
   </data>

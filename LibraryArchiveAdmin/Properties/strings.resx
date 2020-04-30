@@ -168,6 +168,9 @@
   <data name="BookRemoved" xml:space="preserve">
     <value>The book was removed.</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Genre" xml:space="preserve">
     <value>Genre</value>
   </data>
