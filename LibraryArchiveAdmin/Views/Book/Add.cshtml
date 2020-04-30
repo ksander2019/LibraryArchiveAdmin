@@ -1,0 +1,46 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Додавання книги</title>
+</head>
+<body>
+    <div>
+        <h3>Форма додавання книги</h3>
+        <form method="post" action="">
+            
+            <table>
+                
+                <tr>
+                    <td><p>Введіть назву </p></td>
+                    <td><input type="text" name="Title" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Введіть автора </p></td>
+                    <td>
+                        <input type="text" name="Author" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><p>Введіть жанр </p></td>
+                    <td><input type="text" name="Genre" /> </td>
+                </tr>
+                <tr>
+                    <td><p>Введіть рік </p></td>
+                    <td><input type="text" name="Year"> </td>
+
+                </tr>
+                <tr>
+                    <td><p>Введіть кількість </p></td>
+                    <td><input type="text" name="Amount"> </td>
+                </tr>
+                <tr><td><input type="submit" value="Додати" /> </td><td></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
