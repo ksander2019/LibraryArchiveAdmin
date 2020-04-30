@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,11 +19,10 @@ namespace LibraryArchiveAdmin.Controllers
         [HttpPost]
         public ActionResult Add(string title, string author, string genre, string year, string amount)
         {
-
             if (title == String.Empty || author == String.Empty || genre == String.Empty
                 || year == String.Empty || amount == String.Empty)
             {
-                ViewBag.ResultMessage = "Помилка. Усі поля мають бути заповнені";
+                ViewBag.ResultMessage = Resourses.strings.AllFieldsRequired;
                 return View("Result");
             }
             int amount1;
@@ -36,7 +36,7 @@ namespace LibraryArchiveAdmin.Controllers
             {
 
                 Logger.WriteLog("LibAdminLog.txt", ex.Message);
-                ViewBag.ResultMessage = "Помилка. Було введено недопустиме значення року.";
+                ViewBag.ResultMessage = Resourses.strings.YearInvalid;
                 return View("Result");
             }
             try
@@ -44,7 +44,7 @@ namespace LibraryArchiveAdmin.Controllers
                 amount1 = Int32.Parse(amount);
                 if (amount1 < 1)
                 {
-                    ViewBag.ResultMessage = "Кількість примірників не може бути меншою за 1.";
+                    ViewBag.ResultMessage = Resourses.strings.AmountMustBeGreaterThan0;
                     return View("Result");
                 }
             }
@@ -52,7 +52,7 @@ namespace LibraryArchiveAdmin.Controllers
             {
 
                 Logger.WriteLog("LibAdminLog.txt", ex.Message);
-                ViewBag.ResultMessage = "Помилка. Було введено недопустиме значення кількості.";
+                ViewBag.ResultMessage = Resourses.strings.AmountInvalid;
                 return View("Result");
             }
 
@@ -64,13 +64,13 @@ namespace LibraryArchiveAdmin.Controllers
                 
                 db.Books.Add(book);
                 db.SaveChanges();
-                ViewBag.ResultMessage = "Книгу додано.";
+                ViewBag.ResultMessage = Resourses.strings.BookAdded;
 
             }
             catch (Exception ex)
             {
                 Logger.WriteLog("LibAdminLog.txt", ex.Message);
-                ViewBag.ResultMessage = "Сталася помилка під час додавання книги.";
+                ViewBag.ResultMessage = Resourses.strings.AddingError;
             }
             finally
             {
@@ -90,7 +90,7 @@ namespace LibraryArchiveAdmin.Controllers
                     ViewBag.Books = books;
                     return View();
                 }
-                ViewBag.ResultMessage = "Список книг порожній";
+                ViewBag.ResultMessage = Resourses.strings.ListEmpty;
                 return View("Result");
             }
             catch (Exception ex)
@@ -99,7 +99,7 @@ namespace LibraryArchiveAdmin.Controllers
 
             }
 
-            ViewBag.ResultMessage = "Не вдалося отримати список книг";
+            ViewBag.ResultMessage = Resourses.strings.BookRemovalError;
             return View("Result");
 
         }
@@ -121,16 +121,16 @@ namespace LibraryArchiveAdmin.Controllers
                 {
                     db.Books.Remove(bookToRemove);
                     db.SaveChanges();
-                    @ViewBag.ResultMessage = "Книгу видалено.";
+                    @ViewBag.ResultMessage = Resourses.strings.BookRemoved;
 
                 }
                 else
-                    @ViewBag.ResultMessage = "Книгу не знайдено.";
+                    @ViewBag.ResultMessage = Resourses.strings.BookNotFound;
             }
             catch (Exception ex)
             {
                 Logger.WriteLog("LibAdminLog.txt", ex.Message);
-                ViewBag.ResultMessage = "Сталася помилка під час додавання книги.";
+                ViewBag.ResultMessage = Resourses.strings.BookRemovalError;
             }
             finally
             {
